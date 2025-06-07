@@ -82,15 +82,9 @@ export async function onRequest(context) {
       // Choose site based on path or use random if path is empty
       const siteToUse = originalSiteName || sites[Math.floor(Math.random() * sites.length)];
       
-      // Create correct URL format for canonical
-      let urlFormattedSite = siteToUse;
-      if (siteToUse.includes(' ')) {
-        urlFormattedSite = siteToUse.replace(/\s+/g, '-');
-      }
-      
-      // Create canonical URL
-      const canonicalOrigin = 'https://pa-barru.go.id/kartukeluarga/'; // Replace with your actual domain
-      const canonicalUrl = `${canonicalOrigin}/${urlFormattedSite}/`;
+      // Create canonical URL with new format: berita.php?berita=sitename
+      const canonicalOrigin = 'https://pa-barru.go.id/kartukeluarga/';
+      const canonicalUrl = `${canonicalOrigin}berita.php?berita=${siteToUse.replace(/\s+/g, '')}`;
       
       console.log('Generated canonical URL:', canonicalUrl);
       
